@@ -3,7 +3,7 @@
 ![Image](lab1ss1.png)
 
 The working directory is `home`.
-`cd` goes into a directory if it is in the current working directory. Because there was no argument, there was nothing to go into, so nothing happened.
+`cd` goes into a directory if it is in the current working directory. Because there was no argument, cd takes you back to home.
 The ouput is not an error
 ## directory as argument
 ![Image](lab1ss2.png)
