@@ -16,7 +16,7 @@ The ouput is not an error
 
 The working directory is `lecture1`. 
 `cd` goes into a directory if it is in the current working directory, but the argument was a file so nothing happened.
-The ouput is not an error
+The ouput is an error because it did not do what was intended. 
 # `ls`
 ## no arguments
 ![Image](lab1ss4.png)
@@ -41,14 +41,14 @@ The output is not an error.
 ![Image](lab1ss7.png)
 
 The working directory is `home`.
-`cat` prints out whatever you type afterwards.  
+`cat` prints out whatever you type afterwards. This is because it take the argument and prints out whatever is in it. 
 The output is not an error.
 ## directory as argument
 ![Image](lab1ss8.png)
 
 The working directory is `home`.
 `cat` prints out the name of the directory in the file and that it is a directory.   
-The output is not an error.
+The output is an error because it did not do what was intended.
 ## file as argument
 ![Image](lab1ss9.png)
 
