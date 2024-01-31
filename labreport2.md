@@ -14,5 +14,10 @@ The methods called were `url.getPath()`, `.contains()`, `.substring()`, `.indexO
 The relevant arguments were parts of the message in the url to split, to get the indexes of the user and the message. 
 The index of the user and message change depending on the length of each in the message in the url. 
 
+# Part 2
+![Image](lab2ss4.png)
+Private key: /home/.ssh/id_ed25519
+Public key: /home/.ssh/id_ed25519.pu
+
 # Part 3
 I learned how to create a chat server, and the code behind how to make different things appear based on the url. I learned about ports and remote servers and cloning repositories. 
