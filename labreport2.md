@@ -17,7 +17,9 @@ The index of the user and message change depending on the length of each in the 
 # Part 2
 ![Image](lab2ss4.png)
 Private key: /home/.ssh/id_ed25519
-Public key: /home/.ssh/id_ed25519.pu
+Public key: /home/.ssh/id_ed25519.pub
+![Image](lab2ss5png)
+(Didn't have to enter anything for the password)
 
 # Part 3
 I learned how to create a chat server, and the code behind how to make different things appear based on the url. I learned about ports and remote servers and cloning repositories. 
