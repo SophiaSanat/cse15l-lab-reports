@@ -16,9 +16,8 @@ The index of the user and message change depending on the length of each in the 
 
 # Part 2
 ![Image](lab2ss4.png)
-Private key: /home/.ssh/id_ed25519
-Public key: /home/.ssh/id_ed25519.pub
-![Image](lab2ss5png)
+Private key: /home/.ssh/id_ed25519, Public key: /home/.ssh/id_ed25519.pub
+![Image](lab2ss5.png)
 (Didn't have to enter anything for the password)
 
 # Part 3
