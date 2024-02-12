@@ -1,323 +1,153 @@
 # Part 1 - Bugs
-## Failure inducing input
-## Non-failure inducing inpuy
-## Symptom
-## Bug
+## Failure inducing input  
+ `@Test
+  public void testReversed2() {
+    int[] input1 = {1, 2, 3};
+    assertArrayEquals(new int[]{3, 2, 1}, ArrayExamples.reversed(input1));
+  }`  
+## Non-failure inducing input  
+`@Test
+  public void testReversed3() {
+    int[] input1 = {0, 0, 0};
+    assertArrayEquals(new int[]{0, 0, 0}, ArrayExamples.reversed(input1));
+  }`  
+## Symptom  
+`There was 1 failure:
+1) testReversed2(ArrayTests)
+arrays first differed at element [0]; expected:<3> but was:<0>
+        at org.junit.internal.ComparisonCriteria.arrayEquals(ComparisonCriteria.java:78)
+        at org.junit.internal.ComparisonCriteria.arrayEquals(ComparisonCriteria.java:28)
+        at org.junit.Assert.internalArrayEquals(Assert.java:534)
+        at org.junit.Assert.assertArrayEquals(Assert.java:418)
+        at org.junit.Assert.assertArrayEquals(Assert.java:429)
+        at ArrayTests.testReversed2(ArrayTests.java:21)
+        ... 32 trimmed
+Caused by: java.lang.AssertionError: expected:<3> but was:<0>
+        at org.junit.Assert.fail(Assert.java:89)
+        at org.junit.Assert.failNotEquals(Assert.java:835)
+        at org.junit.Assert.assertEquals(Assert.java:120)
+        at org.junit.Assert.assertEquals(Assert.java:146)
+        at org.junit.internal.ExactComparisonCriteria.assertElementsEqual(ExactComparisonCriteria.java:8)
+        at org.junit.internal.ComparisonCriteria.arrayEquals(ComparisonCriteria.java:76)
+        ... 38 more`  
+## Bug  
+Before:  
+`static int[] reversed(int[] arr) {
+    int[] newArray = new int[arr.length];
+    for(int i = 0; i < arr.length; i += 1) {
+      arr[i] = newArray[arr.length - i - 1];
+    }
+    return arr;
+  }`  
+  After:  
+  `static int[] reversed(int[] arr) {
+    int[] newArray = new int[arr.length];
+    for(int i = 0; i < arr.length; i += 1) {
+      newArray[i] = arr[arr.length - i - 1];
+    }
+    return newArray;
+  }`  
+  This fix adresses the issue because instead of changing the old array to all zeros, it changes the new array to the reversed values of the old array.  
 This fix adresses the issue because
 
-# Part 2 - Researching commands - find
-## find <<directory>> -ls
- `find technical/911report -ls`
- Output:
-`12340178        0 drwxr-xr-x   19 sophiasanat      staff                 608 Feb 11 21:21 technical/911report
-12340186      520 -rwxr-xr-x    1 sophiasanat      staff              265912 Feb 11 21:21 technical/911report/chapter-13.4.txt
-12340187      576 -rwxr-xr-x    1 sophiasanat      staff              290993 Feb 11 21:21 technical/911report/chapter-13.5.txt
-12340183      176 -rwxr-xr-x    1 sophiasanat      staff               89854 Feb 11 21:21 technical/911report/chapter-13.1.txt
-12340184      216 -rwxr-xr-x    1 sophiasanat      staff              110568 Feb 11 21:21 technical/911report/chapter-13.2.txt
-12340185      296 -rwxr-xr-x    1 sophiasanat      staff              150467 Feb 11 21:21 technical/911report/chapter-13.3.txt
-12340189      520 -rwxr-xr-x    1 sophiasanat      staff              264360 Feb 11 21:21 technical/911report/chapter-3.txt
-12340188      160 -rwxr-xr-x    1 sophiasanat      staff               79803 Feb 11 21:21 technical/911report/chapter-2.txt
-12340179      232 -rwxr-xr-x    1 sophiasanat      staff              118656 Feb 11 21:21 technical/911report/chapter-1.txt
-12340190      200 -rwxr-xr-x    1 sophiasanat      staff               99008 Feb 11 21:21 technical/911report/chapter-5.txt
-12340191      296 -rwxr-xr-x    1 sophiasanat      staff              149063 Feb 11 21:21 technical/911report/chapter-6.txt
-12340192      256 -rwxr-xr-x    1 sophiasanat      staff              128370 Feb 11 21:21 technical/911report/chapter-7.txt
-12340194      296 -rwxr-xr-x    1 sophiasanat      staff              149644 Feb 11 21:21 technical/911report/chapter-9.txt
-12340193      168 -rwxr-xr-x    1 sophiasanat      staff               84835 Feb 11 21:21 technical/911report/chapter-8.txt
-12340195       24 -rwxr-xr-x    1 sophiasanat      staff                9332 Feb 11 21:21 technical/911report/preface.txt
-12340182      256 -rwxr-xr-x    1 sophiasanat      staff              127587 Feb 11 21:21 technical/911report/chapter-12.txt
-12340180       96 -rwxr-xr-x    1 sophiasanat      staff               47307 Feb 11 21:21 technical/911report/chapter-10.txt
-12340181      144 -rwxr-xr-x    1 sophiasanat      staff               71151 Feb 11 21:21 technical/911report/chapter-11.txt`
-`find technical/government -ls`
-Output:
-`12341035        0 drwxr-xr-x    8 sophiasanat      staff                 256 Feb 11 21:21 technical/government
-12341036        0 drwxr-xr-x   19 sophiasanat      staff                 608 Feb 11 21:21 technical/government/About_LSC
-12341041       16 -rwxr-xr-x    1 sophiasanat      staff                7083 Feb 11 21:21 technical/government/About_LSC/LegalServCorp_v_VelazquezSyllabus.txt
-12341044       96 -rwxr-xr-x    1 sophiasanat      staff               47991 Feb 11 21:21 technical/government/About_LSC/Progress_report.txt
-12341049      136 -rwxr-xr-x    1 sophiasanat      staff               67527 Feb 11 21:21 technical/government/About_LSC/Strategic_report.txt
-12341038       40 -rwxr-xr-x    1 sophiasanat      staff               20130 Feb 11 21:21 technical/government/About_LSC/Comments_on_semiannual.txt
-12341046       88 -rwxr-xr-x    1 sophiasanat      staff               41409 Feb 11 21:21 technical/government/About_LSC/Special_report_to_congress.txt
-12341037       32 -rwxr-xr-x    1 sophiasanat      staff               13558 Feb 11 21:21 technical/government/About_LSC/CONFIG_STANDARDS.txt
-12341050      440 -rwxr-xr-x    1 sophiasanat      staff              223414 Feb 11 21:21 technical/government/About_LSC/commission_report.txt
-12341039       56 -rwxr-xr-x    1 sophiasanat      staff               28121 Feb 11 21:21 technical/government/About_LSC/LegalServCorp_v_VelazquezDissent.txt
-12341043       72 -rwxr-xr-x    1 sophiasanat      staff               34008 Feb 11 21:21 technical/government/About_LSC/ONTARIO_LEGAL_AID_SERIES.txt
-12341040       56 -rwxr-xr-x    1 sophiasanat      staff               27109 Feb 11 21:21 technical/government/About_LSC/LegalServCorp_v_VelazquezOpinion.txt
-12341052       48 -rwxr-xr-x    1 sophiasanat      staff               23451 Feb 11 21:21 technical/government/About_LSC/diversity_priorities.txt
-12341053       40 -rwxr-xr-x    1 sophiasanat      staff               17770 Feb 11 21:21 technical/government/About_LSC/reporting_system.txt
-12341047      304 -rwxr-xr-x    1 sophiasanat      staff              152067 Feb 11 21:21 technical/government/About_LSC/State_Planning_Report.txt
-12341045       32 -rwxr-xr-x    1 sophiasanat      staff               13682 Feb 11 21:21 technical/government/About_LSC/Protocol_Regarding_Access.txt
-12341042       16 -rwxr-xr-x    1 sophiasanat      staff                6118 Feb 11 21:21 technical/government/About_LSC/ODonnell_et_al_v_LSCdecision.txt
-12341051       32 -rwxr-xr-x    1 sophiasanat      staff               13828 Feb 11 21:21 technical/government/About_LSC/conference_highlights.txt
-12341048       64 -rwxr-xr-x    1 sophiasanat      staff               29963 Feb 11 21:21 technical/government/About_LSC/State_Planning_Special_Report.txt
-12341059        0 drwxr-xr-x   16 sophiasanat      staff                 512 Feb 11 21:21 technical/government/Env_Prot_Agen
-12341068      384 -rwxr-xr-x    1 sophiasanat      staff              195851 Feb 11 21:21 technical/government/Env_Prot_Agen/multi102902.txt
-12341071      104 -rwxr-xr-x    1 sophiasanat      staff               52552 Feb 11 21:21 technical/government/Env_Prot_Agen/section-by-section_summary.txt
-12341067      128 -rwxr-xr-x    1 sophiasanat      staff               62387 Feb 11 21:21 technical/government/Env_Prot_Agen/jeffordslieberm.txt
-12341066       72 -rwxr-xr-x    1 sophiasanat      staff               32919 Feb 11 21:21 technical/government/Env_Prot_Agen/final.txt
-12341064      160 -rwxr-xr-x    1 sophiasanat      staff               77895 Feb 11 21:21 technical/government/Env_Prot_Agen/ctf7-10.txt
-12341063      152 -rwxr-xr-x    1 sophiasanat      staff               73979 Feb 11 21:21 technical/government/Env_Prot_Agen/ctf1-6.txt
-12341070       40 -rwxr-xr-x    1 sophiasanat      staff               19798 Feb 11 21:21 technical/government/Env_Prot_Agen/ro_clear_skies_book.txt
-12341065      264 -rwxr-xr-x    1 sophiasanat      staff              131959 Feb 11 21:21 technical/government/Env_Prot_Agen/ctm4-10.txt
-12341060       40 -rwxr-xr-x    1 sophiasanat      staff               19836 Feb 11 21:21 technical/government/Env_Prot_Agen/1-3_meth_901.txt
-12341061      144 -rwxr-xr-x    1 sophiasanat      staff               72635 Feb 11 21:21 technical/government/Env_Prot_Agen/atx1-6.txt
-12341073       32 -rwxr-xr-x    1 sophiasanat      staff               13279 Feb 11 21:21 technical/government/Env_Prot_Agen/tech_sectiong.txt
-12341062      480 -rwxr-xr-x    1 sophiasanat      staff              243860 Feb 11 21:21 technical/government/Env_Prot_Agen/bill.txt
-12341069       64 -rwxr-xr-x    1 sophiasanat      staff               31404 Feb 11 21:21 technical/government/Env_Prot_Agen/nov1.txt
-12341072      352 -rwxr-xr-x    1 sophiasanat      staff              178501 Feb 11 21:21 technical/government/Env_Prot_Agen/tech_adden.txt
-12341054        0 drwxr-xr-x    6 sophiasanat      staff                 192 Feb 11 21:21 technical/government/Alcohol_Problems
-12341056       72 -rwxr-xr-x    1 sophiasanat      staff               35927 Feb 11 21:21 technical/government/Alcohol_Problems/Session2-PDF.txt
-12341057      192 -rwxr-xr-x    1 sophiasanat      staff               94212 Feb 11 21:21 technical/government/Alcohol_Problems/Session3-PDF.txt
-12341055       64 -rwxr-xr-x    1 sophiasanat      staff               31843 Feb 11 21:21 technical/government/Alcohol_Problems/DraftRecom-PDF.txt
-12341058      160 -rwxr-xr-x    1 sophiasanat      staff               80034 Feb 11 21:21 technical/government/Alcohol_Problems/Session4-PDF.txt
-12341074        0 drwxr-xr-x   93 sophiasanat      staff                2976 Feb 11 21:21 technical/government/Gen_Account_Office
-12341100      256 -rwxr-xr-x    1 sophiasanat      staff              127448 Feb 11 21:21 technical/government/Gen_Account_Office/d0269g.txt
-12341090      192 -rwxr-xr-x    1 sophiasanat      staff               96111 Feb 11 21:21 technical/government/Gen_Account_Office/Testimony_cg00010t.txt
-12341141       24 -rwxr-xr-x    1 sophiasanat      staff               11370 Feb 11 21:21 technical/government/Gen_Account_Office/og97032.txt
-12341164       16 -rwxr-xr-x    1 sophiasanat      staff                6582 Feb 11 21:21 technical/government/Gen_Account_Office/og99036.txt
-12341075      488 -rwxr-xr-x    1 sophiasanat      staff              246218 Feb 11 21:21 technical/government/Gen_Account_Office/GovernmentAuditingStandards_yb2002ed.txt
-12341086      224 -rwxr-xr-x    1 sophiasanat      staff              113222 Feb 11 21:21 technical/government/Gen_Account_Office/Sept27-2002_d02966.txt
-12341098      272 -rwxr-xr-x    1 sophiasanat      staff              137553 Feb 11 21:21 technical/government/Gen_Account_Office/d01376g.txt
-12341087      600 -rwxr-xr-x    1 sophiasanat      staff              306011 Feb 11 21:21 technical/government/Gen_Account_Office/Statements_Feb28-1997_volume.txt
-12341137       16 -rwxr-xr-x    1 sophiasanat      staff                6506 Feb 11 21:21 technical/government/Gen_Account_Office/og97019.txt
-12341165      400 -rwxr-xr-x    1 sophiasanat      staff              202066 Feb 11 21:21 technical/government/Gen_Account_Office/pe1019.txt
-12341088       80 -rwxr-xr-x    1 sophiasanat      staff               37156 Feb 11 21:21 technical/government/Gen_Account_Office/Testimony_Jul15-2002_d02940t.txt
-12341106      216 -rwxr-xr-x    1 sophiasanat      staff              106907 Feb 11 21:21 technical/government/Gen_Account_Office/gg96118.txt
-12341138       24 -rwxr-xr-x    1 sophiasanat      staff                8511 Feb 11 21:21 technical/government/Gen_Account_Office/og97020.txt
-12341105       56 -rwxr-xr-x    1 sophiasanat      staff               26946 Feb 11 21:21 technical/government/Gen_Account_Office/ffm.txt
-12341139       16 -rwxr-xr-x    1 sophiasanat      staff                6830 Feb 11 21:21 technical/government/Gen_Account_Office/og97023.txt
-12341077      160 -rwxr-xr-x    1 sophiasanat      staff               80304 Feb 11 21:21 technical/government/Gen_Account_Office/July11-2001_gg00172r.txt
-12341095       16 -rwxr-xr-x    1 sophiasanat      staff                4185 Feb 11 21:21 technical/government/Gen_Account_Office/d01121g.txt
-12341109       32 -rwxr-xr-x    1 sophiasanat      staff               16331 Feb 11 21:21 technical/government/Gen_Account_Office/og96011.txt
-12341104      136 -rwxr-xr-x    1 sophiasanat      staff               68219 Feb 11 21:21 technical/government/Gen_Account_Office/d03419sp.txt
-12341080       64 -rwxr-xr-x    1 sophiasanat      staff               29503 Feb 11 21:21 technical/government/Gen_Account_Office/Letter_Walkeraug17let.txt
-12341149       24 -rwxr-xr-x    1 sophiasanat      staff                9350 Feb 11 21:21 technical/government/Gen_Account_Office/og97051.txt
-12341146       16 -rwxr-xr-x    1 sophiasanat      staff                7459 Feb 11 21:21 technical/government/Gen_Account_Office/og97045.txt
-12341091       80 -rwxr-xr-x    1 sophiasanat      staff               38526 Feb 11 21:21 technical/government/Gen_Account_Office/Testimony_d01609t.txt
-12341148       24 -rwxr-xr-x    1 sophiasanat      staff               11282 Feb 11 21:21 technical/government/Gen_Account_Office/og97050.txt
-12341126       32 -rwxr-xr-x    1 sophiasanat      staff               16152 Feb 11 21:21 technical/government/Gen_Account_Office/og96038.txt
-12341156       16 -rwxr-xr-x    1 sophiasanat      staff                5455 Feb 11 21:21 technical/government/Gen_Account_Office/og98029.txt
-12341085      136 -rwxr-xr-x    1 sophiasanat      staff               65794 Feb 11 21:21 technical/government/Gen_Account_Office/Sept14-2002_d011070.txt
-12341103       96 -rwxr-xr-x    1 sophiasanat      staff               47581 Feb 11 21:21 technical/government/Gen_Account_Office/d03273g.txt
-12341082       72 -rwxr-xr-x    1 sophiasanat      staff               36163 Feb 11 21:21 technical/government/Gen_Account_Office/Oct15-1999_gg00026t.txt
-12341110       24 -rwxr-xr-x    1 sophiasanat      staff               10622 Feb 11 21:21 technical/government/Gen_Account_Office/og96012.txt
-12341147       16 -rwxr-xr-x    1 sophiasanat      staff                7547 Feb 11 21:21 technical/government/Gen_Account_Office/og97046.txt
-12341150       24 -rwxr-xr-x    1 sophiasanat      staff               10000 Feb 11 21:21 technical/government/Gen_Account_Office/og97052.txt
-12341102      120 -rwxr-xr-x    1 sophiasanat      staff               59136 Feb 11 21:21 technical/government/Gen_Account_Office/d03232sp.txt
-12341145       24 -rwxr-xr-x    1 sophiasanat      staff               10616 Feb 11 21:21 technical/government/Gen_Account_Office/og97043.txt
-12341078      104 -rwxr-xr-x    1 sophiasanat      staff               52587 Feb 11 21:21 technical/government/Gen_Account_Office/June30-2000_gg00135r.txt
-12341099      592 -rwxr-xr-x    1 sophiasanat      staff              302040 Feb 11 21:21 technical/government/Gen_Account_Office/d01591sp.txt
-12341083      144 -rwxr-xr-x    1 sophiasanat      staff               73339 Feb 11 21:21 technical/government/Gen_Account_Office/Oct15-2001_d0224.txt
-12341119       16 -rwxr-xr-x    1 sophiasanat      staff                7780 Feb 11 21:21 technical/government/Gen_Account_Office/og96028.txt
-12341111       24 -rwxr-xr-x    1 sophiasanat      staff                9289 Feb 11 21:21 technical/government/Gen_Account_Office/og96014.txt
-12341144       24 -rwxr-xr-x    1 sophiasanat      staff               11124 Feb 11 21:21 technical/government/Gen_Account_Office/og97041.txt
-12341112       16 -rwxr-xr-x    1 sophiasanat      staff                6002 Feb 11 21:21 technical/government/Gen_Account_Office/og96015.txt
-12341096       48 -rwxr-xr-x    1 sophiasanat      staff               23821 Feb 11 21:21 technical/government/Gen_Account_Office/d01145g.txt
-12341076       56 -rwxr-xr-x    1 sophiasanat      staff               28350 Feb 11 21:21 technical/government/Gen_Account_Office/InternalControl_ai00021p.txt
-12341120       24 -rwxr-xr-x    1 sophiasanat      staff               10461 Feb 11 21:21 technical/government/Gen_Account_Office/og96031.txt
-12341097       72 -rwxr-xr-x    1 sophiasanat      staff               34274 Feb 11 21:21 technical/government/Gen_Account_Office/d01186g.txt
-12341122       16 -rwxr-xr-x    1 sophiasanat      staff                6598 Feb 11 21:21 technical/government/Gen_Account_Office/og96033.txt
-12341118       24 -rwxr-xr-x    1 sophiasanat      staff               11321 Feb 11 21:21 technical/government/Gen_Account_Office/og96027.txt
-12341153       24 -rwxr-xr-x    1 sophiasanat      staff               10504 Feb 11 21:21 technical/government/Gen_Account_Office/og98022.txt
-12341117       32 -rwxr-xr-x    1 sophiasanat      staff               14287 Feb 11 21:21 technical/government/Gen_Account_Office/og96026.txt
-12341121       24 -rwxr-xr-x    1 sophiasanat      staff                8900 Feb 11 21:21 technical/government/Gen_Account_Office/og96032.txt
-12341107      232 -rwxr-xr-x    1 sophiasanat      staff              115899 Feb 11 21:21 technical/government/Gen_Account_Office/im814.txt
-12341124       32 -rwxr-xr-x    1 sophiasanat      staff               12456 Feb 11 21:21 technical/government/Gen_Account_Office/og96036.txt
-12341115       32 -rwxr-xr-x    1 sophiasanat      staff               14691 Feb 11 21:21 technical/government/Gen_Account_Office/og96022.txt
-12341116       24 -rwxr-xr-x    1 sophiasanat      staff                9806 Feb 11 21:21 technical/government/Gen_Account_Office/og96023.txt
-12341125       24 -rwxr-xr-x    1 sophiasanat      staff                9158 Feb 11 21:21 technical/government/Gen_Account_Office/og96037.txt
-12341158       24 -rwxr-xr-x    1 sophiasanat      staff                8588 Feb 11 21:21 technical/government/Gen_Account_Office/og98032.txt
-12341155       16 -rwxr-xr-x    1 sophiasanat      staff                5537 Feb 11 21:21 technical/government/Gen_Account_Office/og98026.txt
-12341157       16 -rwxr-xr-x    1 sophiasanat      staff                6142 Feb 11 21:21 technical/government/Gen_Account_Office/og98030.txt
-12341154       16 -rwxr-xr-x    1 sophiasanat      staff                6966 Feb 11 21:21 technical/government/Gen_Account_Office/og98024.txt
-12341108       16 -rwxr-xr-x    1 sophiasanat      staff                6804 Feb 11 21:21 technical/government/Gen_Account_Office/og96009.txt
-12341114       16 -rwxr-xr-x    1 sophiasanat      staff                6969 Feb 11 21:21 technical/government/Gen_Account_Office/og96021.txt
-12341151       16 -rwxr-xr-x    1 sophiasanat      staff                5937 Feb 11 21:21 technical/government/Gen_Account_Office/og98018.txt
-12341092      192 -rwxr-xr-x    1 sophiasanat      staff               97533 Feb 11 21:21 technical/government/Gen_Account_Office/ai00134.txt
-12341123       24 -rwxr-xr-x    1 sophiasanat      staff               10364 Feb 11 21:21 technical/government/Gen_Account_Office/og96034.txt
-12341152       16 -rwxr-xr-x    1 sophiasanat      staff                5372 Feb 11 21:21 technical/government/Gen_Account_Office/og98019.txt
-12341113       24 -rwxr-xr-x    1 sophiasanat      staff                8703 Feb 11 21:21 technical/government/Gen_Account_Office/og96020.txt
-12341089      128 -rwxr-xr-x    1 sophiasanat      staff               61940 Feb 11 21:21 technical/government/Gen_Account_Office/Testimony_Jul17-2002_d02957t.txt
-12341132       24 -rwxr-xr-x    1 sophiasanat      staff                9811 Feb 11 21:21 technical/government/Gen_Account_Office/og96047.txt
-12341094      224 -rwxr-xr-x    1 sophiasanat      staff              114375 Feb 11 21:21 technical/government/Gen_Account_Office/ai9868.txt
-12341160       16 -rwxr-xr-x    1 sophiasanat      staff                6930 Feb 11 21:21 technical/government/Gen_Account_Office/og98041.txt
-12341142       16 -rwxr-xr-x    1 sophiasanat      staff                7976 Feb 11 21:21 technical/government/Gen_Account_Office/og97038.txt
-12341084      104 -rwxr-xr-x    1 sophiasanat      staff               49912 Feb 11 21:21 technical/government/Gen_Account_Office/Paper_Walker11-2002_acpro122.txt
-12341136       16 -rwxr-xr-x    1 sophiasanat      staff                8173 Feb 11 21:21 technical/government/Gen_Account_Office/og97011.txt
-12341143       24 -rwxr-xr-x    1 sophiasanat      staff                9835 Feb 11 21:21 technical/government/Gen_Account_Office/og97039.txt
-12341081      224 -rwxr-xr-x    1 sophiasanat      staff              114375 Feb 11 21:21 technical/government/Gen_Account_Office/May1998_ai98068.txt
-12341159       24 -rwxr-xr-x    1 sophiasanat      staff                8547 Feb 11 21:21 technical/government/Gen_Account_Office/og98040.txt
-12341131       24 -rwxr-xr-x    1 sophiasanat      staff               10365 Feb 11 21:21 technical/government/Gen_Account_Office/og96045.txt
-12341161       16 -rwxr-xr-x    1 sophiasanat      staff                5969 Feb 11 21:21 technical/government/Gen_Account_Office/og98044.txt
-12341128       40 -rwxr-xr-x    1 sophiasanat      staff               16629 Feb 11 21:21 technical/government/Gen_Account_Office/og96041.txt
-12341101      280 -rwxr-xr-x    1 sophiasanat      staff              140071 Feb 11 21:21 technical/government/Gen_Account_Office/d02701.txt
-12341133       16 -rwxr-xr-x    1 sophiasanat      staff                6891 Feb 11 21:21 technical/government/Gen_Account_Office/og97001.txt
-12341140       16 -rwxr-xr-x    1 sophiasanat      staff                5826 Feb 11 21:21 technical/government/Gen_Account_Office/og97028.txt
-12341093      144 -rwxr-xr-x    1 sophiasanat      staff               70286 Feb 11 21:21 technical/government/Gen_Account_Office/ai2132.txt
-12341079       16 -rwxr-xr-x    1 sophiasanat      staff                7852 Feb 11 21:21 technical/government/Gen_Account_Office/Letter_WalkerJan30-2001.txt
-12341127       24 -rwxr-xr-x    1 sophiasanat      staff                9710 Feb 11 21:21 technical/government/Gen_Account_Office/og96040.txt
-12341162       24 -rwxr-xr-x    1 sophiasanat      staff                8927 Feb 11 21:21 technical/government/Gen_Account_Office/og98045.txt
-12341129       24 -rwxr-xr-x    1 sophiasanat      staff                8973 Feb 11 21:21 technical/government/Gen_Account_Office/og96042.txt
-12341134       16 -rwxr-xr-x    1 sophiasanat      staff                6755 Feb 11 21:21 technical/government/Gen_Account_Office/og97002.txt
-12341135       24 -rwxr-xr-x    1 sophiasanat      staff               11267 Feb 11 21:21 technical/government/Gen_Account_Office/og97003.txt
-12341130       24 -rwxr-xr-x    1 sophiasanat      staff               10684 Feb 11 21:21 technical/government/Gen_Account_Office/og96043.txt
-12341163       16 -rwxr-xr-x    1 sophiasanat      staff                7108 Feb 11 21:21 technical/government/Gen_Account_Office/og98046.txt
-12341312        0 drwxr-xr-x   16 sophiasanat      staff                 512 Feb 11 21:21 technical/government/Post_Rate_Comm
-12341319       48 -rwxr-xr-x    1 sophiasanat      staff               22775 Feb 11 21:21 technical/government/Post_Rate_Comm/Gleiman_EMASpeech.txt
-12341323       80 -rwxr-xr-x    1 sophiasanat      staff               37843 Feb 11 21:21 technical/government/Post_Rate_Comm/Mitchell_spyros-first-class.txt
-12341314       88 -rwxr-xr-x    1 sophiasanat      staff               42507 Feb 11 21:21 technical/government/Post_Rate_Comm/Cohenetal_CreamSkimming.txt
-12341315       64 -rwxr-xr-x    1 sophiasanat      staff               32627 Feb 11 21:21 technical/government/Post_Rate_Comm/Cohenetal_DeliveryCost.txt
-12341322       96 -rwxr-xr-x    1 sophiasanat      staff               45459 Feb 11 21:21 technical/government/Post_Rate_Comm/Mitchell_RMVancouver.txt
-12341320       56 -rwxr-xr-x    1 sophiasanat      staff               26143 Feb 11 21:21 technical/government/Post_Rate_Comm/Gleiman_gca2000.txt
-12341313       48 -rwxr-xr-x    1 sophiasanat      staff               20822 Feb 11 21:21 technical/government/Post_Rate_Comm/Cohenetal_Cost_Function.txt
-12341324       48 -rwxr-xr-x    1 sophiasanat      staff               21178 Feb 11 21:21 technical/government/Post_Rate_Comm/Redacted_Study.txt
-12341321      152 -rwxr-xr-x    1 sophiasanat      staff               75973 Feb 11 21:21 technical/government/Post_Rate_Comm/Mitchell_6-17-Mit.txt
-12341318       80 -rwxr-xr-x    1 sophiasanat      staff               39854 Feb 11 21:21 technical/government/Post_Rate_Comm/Cohenetal_comparison.txt
-12341317       72 -rwxr-xr-x    1 sophiasanat      staff               35913 Feb 11 21:21 technical/government/Post_Rate_Comm/Cohenetal_Scale.txt
-12341316       72 -rwxr-xr-x    1 sophiasanat      staff               33903 Feb 11 21:21 technical/government/Post_Rate_Comm/Cohenetal_RuralDelivery.txt
-12341325       64 -rwxr-xr-x    1 sophiasanat      staff               32630 Feb 11 21:21 technical/government/Post_Rate_Comm/ReportToCongress2002WEB.txt
-12341326       24 -rwxr-xr-x    1 sophiasanat      staff               11609 Feb 11 21:21 technical/government/Post_Rate_Comm/WolakSpeech_usps.txt
-12341166        0 drwxr-xr-x  147 sophiasanat      staff                4704 Feb 11 21:21 technical/government/Media
-12341208        8 -rwxr-xr-x    1 sophiasanat      staff                3784 Feb 11 21:21 technical/government/Media/Federal_agency.txt
-12341311        8 -rwxr-xr-x    1 sophiasanat      staff                3107 Feb 11 21:21 technical/government/Media/water_fees.txt
-12341224       16 -rwxr-xr-x    1 sophiasanat      staff                6287 Feb 11 21:21 technical/government/Media/Helping_Out.txt
-12341298       16 -rwxr-xr-x    1 sophiasanat      staff                4279 Feb 11 21:21 technical/government/Media/balance_scales_of_justice.txt
-12341189        8 -rwxr-xr-x    1 sophiasanat      staff                2421 Feb 11 21:21 technical/government/Media/BusinessWire2.txt
-12341236       16 -rwxr-xr-x    1 sophiasanat      staff                5965 Feb 11 21:21 technical/government/Media/Legal-aid_chief.txt
-12341288       16 -rwxr-xr-x    1 sophiasanat      staff                6453 Feb 11 21:21 technical/government/Media/Unusual_Woodburn.txt
-12341216        8 -rwxr-xr-x    1 sophiasanat      staff                2078 Feb 11 21:21 technical/government/Media/Funding_cuts_force.txt
-12341219       16 -rwxr-xr-x    1 sophiasanat      staff                6946 Feb 11 21:21 technical/government/Media/Good_guys_reward.txt
-12341176       16 -rwxr-xr-x    1 sophiasanat      staff                5947 Feb 11 21:21 technical/government/Media/Anthem_Payout.txt
-12341203        8 -rwxr-xr-x    1 sophiasanat      staff                2980 Feb 11 21:21 technical/government/Media/Donald_Hilliker.txt
-12341214        8 -rwxr-xr-x    1 sophiasanat      staff                2702 Feb 11 21:21 technical/government/Media/Free_legal_service.txt
-12341258        8 -rwxr-xr-x    1 sophiasanat      staff                2611 Feb 11 21:21 technical/government/Media/Owning_a_Piece.txt
-12341278       16 -rwxr-xr-x    1 sophiasanat      staff                6011 Feb 11 21:21 technical/government/Media/Targeting_Domestic_Violence.txt
-12341304       16 -rwxr-xr-x    1 sophiasanat      staff                4112 Feb 11 21:21 technical/government/Media/highlight_Senior_Day.txt
-12341275        8 -rwxr-xr-x    1 sophiasanat      staff                3798 Feb 11 21:21 technical/government/Media/State_funding.txt
-12341209       16 -rwxr-xr-x    1 sophiasanat      staff                5577 Feb 11 21:21 technical/government/Media/Few_who_need.txt
-12341192       16 -rwxr-xr-x    1 sophiasanat      staff                6104 Feb 11 21:21 technical/government/Media/City_Council_Budget.txt
-12341244       16 -rwxr-xr-x    1 sophiasanat      staff                7218 Feb 11 21:21 technical/government/Media/Legal_system_fails_poor.txt
-12341276       16 -rwxr-xr-x    1 sophiasanat      staff                4570 Feb 11 21:21 technical/government/Media/Supporting_Legal_Center.txt
-12341246       16 -rwxr-xr-x    1 sophiasanat      staff                4547 Feb 11 21:21 technical/government/Media/Lindsays_legacy.txt
-12341255        8 -rwxr-xr-x    1 sophiasanat      staff                4075 Feb 11 21:21 technical/government/Media/New_funding_sources.txt
-12341181       16 -rwxr-xr-x    1 sophiasanat      staff                4540 Feb 11 21:21 technical/government/Media/Barnes_new_job.txt
-12341267        8 -rwxr-xr-x    1 sophiasanat      staff                2768 Feb 11 21:21 technical/government/Media/Providing_Legal_Aid.txt
-12341256       16 -rwxr-xr-x    1 sophiasanat      staff                4208 Feb 11 21:21 technical/government/Media/Nonprofit_Buys.txt
-12341240        8 -rwxr-xr-x    1 sophiasanat      staff                3889 Feb 11 21:21 technical/government/Media/Legal_Aid_in_Clay_County.txt
-12341201       16 -rwxr-xr-x    1 sophiasanat      staff                5158 Feb 11 21:21 technical/government/Media/Domestic_Violence_Ruling.txt
-12341171       16 -rwxr-xr-x    1 sophiasanat      staff                6261 Feb 11 21:21 technical/government/Media/Abuse_penalties.txt
-12341233        8 -rwxr-xr-x    1 sophiasanat      staff                3610 Feb 11 21:21 technical/government/Media/Law_Award_from_College.txt
-12341234       24 -rwxr-xr-x    1 sophiasanat      staff                8530 Feb 11 21:21 technical/government/Media/Law_Schools.txt
-12341268       16 -rwxr-xr-x    1 sophiasanat      staff                5215 Feb 11 21:21 technical/government/Media/Raising_the_Bar.txt
-12341229       16 -rwxr-xr-x    1 sophiasanat      staff                5451 Feb 11 21:21 technical/government/Media/Justice_for_all.txt
-12341297        8 -rwxr-xr-x    1 sophiasanat      staff                2609 Feb 11 21:21 technical/government/Media/agency_expands.txt
-12341223        8 -rwxr-xr-x    1 sophiasanat      staff                2009 Feb 11 21:21 technical/government/Media/Helping_Hands.txt
-12341242        8 -rwxr-xr-x    1 sophiasanat      staff                2788 Feb 11 21:21 technical/government/Media/Legal_hotline.txt
-12341307        8 -rwxr-xr-x    1 sophiasanat      staff                3993 Feb 11 21:21 technical/government/Media/not_accessible_to_disabled.txt
-12341191        8 -rwxr-xr-x    1 sophiasanat      staff                1708 Feb 11 21:21 technical/government/Media/Campaign_Pays.txt
-12341254       16 -rwxr-xr-x    1 sophiasanat      staff                4179 Feb 11 21:21 technical/government/Media/New_Online_Resources.txt
-12341175       16 -rwxr-xr-x    1 sophiasanat      staff                4866 Feb 11 21:21 technical/government/Media/Annual_Fee.txt
-12341257       16 -rwxr-xr-x    1 sophiasanat      staff                4314 Feb 11 21:21 technical/government/Media/Oregon_Poor.txt
-12341182        8 -rwxr-xr-x    1 sophiasanat      staff                2241 Feb 11 21:21 technical/government/Media/Barnes_pro_bono.txt
-12341262        8 -rwxr-xr-x    1 sophiasanat      staff                2155 Feb 11 21:21 technical/government/Media/Poor_Lacking_Legal_Aid.txt
-12341259        8 -rwxr-xr-x    1 sophiasanat      staff                2947 Feb 11 21:21 technical/government/Media/Paralegal_Honored.txt
-12341295        8 -rwxr-xr-x    1 sophiasanat      staff                3834 Feb 11 21:21 technical/government/Media/Workers_aid_center.txt
-12341260       16 -rwxr-xr-x    1 sophiasanat      staff                4263 Feb 11 21:21 technical/government/Media/Philly_Lawyers.txt
-12341285       16 -rwxr-xr-x    1 sophiasanat      staff                5450 Feb 11 21:21 technical/government/Media/Too_Crucial_to_Take_Cut.txt
-12341265        8 -rwxr-xr-x    1 sophiasanat      staff                4057 Feb 11 21:21 technical/government/Media/Pro_Bono_Services.txt
-12341272        8 -rwxr-xr-x    1 sophiasanat      staff                3720 Feb 11 21:21 technical/government/Media/Rumble_in_the_Bronx.txt
-12341212        8 -rwxr-xr-x    1 sophiasanat      staff                3664 Feb 11 21:21 technical/government/Media/FortWorthStarTelegram.txt
-12341308       24 -rwxr-xr-x    1 sophiasanat      staff                8383 Feb 11 21:21 technical/government/Media/predatory_loans.txt
-12341277       24 -rwxr-xr-x    1 sophiasanat      staff                9085 Feb 11 21:21 technical/government/Media/Survey.txt
-12341168        8 -rwxr-xr-x    1 sophiasanat      staff                2401 Feb 11 21:21 technical/government/Media/AP_LawSchoolDebts.txt
-12341296       16 -rwxr-xr-x    1 sophiasanat      staff                5109 Feb 11 21:21 technical/government/Media/Working_for_Free.txt
-12341205        8 -rwxr-xr-x    1 sophiasanat      staff                4021 Feb 11 21:21 technical/government/Media/Eviction_law.txt
-12341232        8 -rwxr-xr-x    1 sophiasanat      staff                3892 Feb 11 21:21 technical/government/Media/Law-school_grads.txt
-12341206        8 -rwxr-xr-x    1 sophiasanat      staff                2519 Feb 11 21:21 technical/government/Media/FY_04_Budget_Outlook.txt
-12341303        8 -rwxr-xr-x    1 sophiasanat      staff                3710 Feb 11 21:21 technical/government/Media/help_rent-to-own_tenants.txt
-12341280       16 -rwxr-xr-x    1 sophiasanat      staff                5294 Feb 11 21:21 technical/government/Media/Texas_Lawyer.txt
-12341199        8 -rwxr-xr-x    1 sophiasanat      staff                3539 Feb 11 21:21 technical/government/Media/Disaster_center.txt
-12341231        8 -rwxr-xr-x    1 sophiasanat      staff                3306 Feb 11 21:21 technical/government/Media/Kiosks_for_court_forms.txt
-12341225        8 -rwxr-xr-x    1 sophiasanat      staff                3740 Feb 11 21:21 technical/government/Media/Higher_Registration_Fees.txt
-12341210        8 -rwxr-xr-x    1 sophiasanat      staff                1757 Feb 11 21:21 technical/government/Media/Fire_Victims_Sue.txt
-12341217        8 -rwxr-xr-x    1 sophiasanat      staff                4080 Feb 11 21:21 technical/government/Media/Funds_Shortage.txt
-12341279       32 -rwxr-xr-x    1 sophiasanat      staff               14232 Feb 11 21:21 technical/government/Media/Terrorist_Attack.txt
-12341190        8 -rwxr-xr-x    1 sophiasanat      staff                3459 Feb 11 21:21 technical/government/Media/Butler_Co_attorneys.txt
-12341184       16 -rwxr-xr-x    1 sophiasanat      staff                7511 Feb 11 21:21 technical/government/Media/BergenCountyRecord.txt
-12341300        8 -rwxr-xr-x    1 sophiasanat      staff                3045 Feb 11 21:21 technical/government/Media/families_saved.txt
-12341197        8 -rwxr-xr-x    1 sophiasanat      staff                1941 Feb 11 21:21 technical/government/Media/Court_Keeps_Judge_From.txt
-12341291       16 -rwxr-xr-x    1 sophiasanat      staff                4347 Feb 11 21:21 technical/government/Media/Volunteers_Step_Up.txt
-12341196       32 -rwxr-xr-x    1 sophiasanat      staff               14442 Feb 11 21:21 technical/government/Media/Coup_Reshapes_Legal_Aid.txt
-12341227       16 -rwxr-xr-x    1 sophiasanat      staff                7727 Feb 11 21:21 technical/government/Media/IOLTA_INTEREST_RATE.txt
-12341218        8 -rwxr-xr-x    1 sophiasanat      staff                3133 Feb 11 21:21 technical/government/Media/Ginny_Kilgore.txt
-12341241        8 -rwxr-xr-x    1 sophiasanat      staff                2844 Feb 11 21:21 technical/government/Media/Legal_Aid_looks_to_legislators.txt
-12341263       24 -rwxr-xr-x    1 sophiasanat      staff                8627 Feb 11 21:21 technical/government/Media/Poverty_Lawyers.txt
-12341294        8 -rwxr-xr-x    1 sophiasanat      staff                2553 Feb 11 21:21 technical/government/Media/Wingates_winds.txt
-12341179       16 -rwxr-xr-x    1 sophiasanat      staff                7375 Feb 11 21:21 technical/government/Media/Avoids_Budget_Cut.txt
-12341302       16 -rwxr-xr-x    1 sophiasanat      staff                5387 Feb 11 21:21 technical/government/Media/grants_fail_to_come.txt
-12341248        8 -rwxr-xr-x    1 sophiasanat      staff                3658 Feb 11 21:21 technical/government/Media/Lockyer_Warns.txt
-12341228        8 -rwxr-xr-x    1 sophiasanat      staff                1999 Feb 11 21:21 technical/government/Media/It_Pays_to_Know.txt
-12341273        8 -rwxr-xr-x    1 sophiasanat      staff                1742 Feb 11 21:21 technical/government/Media/Self-Help_Website.txt
-12341269        8 -rwxr-xr-x    1 sophiasanat      staff                3968 Feb 11 21:21 technical/government/Media/Rental_rules.txt
-12341289       24 -rwxr-xr-x    1 sophiasanat      staff                8629 Feb 11 21:21 technical/government/Media/Using_Tech_Tools.txt
-12341177       24 -rwxr-xr-x    1 sophiasanat      staff               10950 Feb 11 21:21 technical/government/Media/Assuring_Underprivileged.txt
-12341186        8 -rwxr-xr-x    1 sophiasanat      staff                2106 Feb 11 21:21 technical/government/Media/Boone_legal_service.txt
-12341211        8 -rwxr-xr-x    1 sophiasanat      staff                3562 Feb 11 21:21 technical/government/Media/Firm_to_the_Poor_Needs_Help.txt
-12341251       16 -rwxr-xr-x    1 sophiasanat      staff                5847 Feb 11 21:21 technical/government/Media/Making_a_case.txt
-12341180        8 -rwxr-xr-x    1 sophiasanat      staff                2154 Feb 11 21:21 technical/government/Media/Barnes_Volunteers.txt
-12341195        8 -rwxr-xr-x    1 sophiasanat      staff                2311 Feb 11 21:21 technical/government/Media/Commercial_Appeal.txt
-12341230        8 -rwxr-xr-x    1 sophiasanat      staff                1741 Feb 11 21:21 technical/government/Media/Justice_requests.txt
-12341213       16 -rwxr-xr-x    1 sophiasanat      staff                5262 Feb 11 21:21 technical/government/Media/Free_Legal_Assistance.txt
-12341247       16 -rwxr-xr-x    1 sophiasanat      staff                6893 Feb 11 21:21 technical/government/Media/Local_Attorneys.txt
-12341281        8 -rwxr-xr-x    1 sophiasanat      staff                3702 Feb 11 21:21 technical/government/Media/Texas_Supreme_Court.txt
-12341193        8 -rwxr-xr-x    1 sophiasanat      staff                2418 Feb 11 21:21 technical/government/Media/Civil_Matters.txt
-12341249        8 -rwxr-xr-x    1 sophiasanat      staff                2715 Feb 11 21:21 technical/government/Media/Low-income_children.txt
-12341306       16 -rwxr-xr-x    1 sophiasanat      staff                5675 Feb 11 21:21 technical/government/Media/man_on_national_team.txt
-12341188       16 -rwxr-xr-x    1 sophiasanat      staff                5613 Feb 11 21:21 technical/government/Media/BusinessWire.txt
-12341215        8 -rwxr-xr-x    1 sophiasanat      staff                3133 Feb 11 21:21 technical/government/Media/Funding_May_Limit.txt
-12341283        8 -rwxr-xr-x    1 sophiasanat      staff                2695 Feb 11 21:21 technical/government/Media/The_Columbian.txt
-12341226        8 -rwxr-xr-x    1 sophiasanat      staff                2334 Feb 11 21:21 technical/government/Media/Higher_court.txt
-12341274       16 -rwxr-xr-x    1 sophiasanat      staff                5182 Feb 11 21:21 technical/government/Media/Service_Agency.txt
-12341252       16 -rwxr-xr-x    1 sophiasanat      staff                7732 Feb 11 21:21 technical/government/Media/Marylands_Legal_Aid.txt
-12341185        8 -rwxr-xr-x    1 sophiasanat      staff                2156 Feb 11 21:21 technical/government/Media/Bias_on_the_Job.txt
-12341178        8 -rwxr-xr-x    1 sophiasanat      staff                2244 Feb 11 21:21 technical/government/Media/Attorney_gives_his_time.txt
-12341245       16 -rwxr-xr-x    1 sophiasanat      staff                4663 Feb 11 21:21 technical/government/Media/Library_Lawyers.txt
-12341198        8 -rwxr-xr-x    1 sophiasanat      staff                3746 Feb 11 21:21 technical/government/Media/Crains_New_York_Business.txt
-12341222        8 -rwxr-xr-x    1 sophiasanat      staff                3706 Feb 11 21:21 technical/government/Media/Hard_to_Get.txt
-12341284       24 -rwxr-xr-x    1 sophiasanat      staff                8304 Feb 11 21:21 technical/government/Media/The_State_of_Pro_Bono.txt
-12341310        8 -rwxr-xr-x    1 sophiasanat      staff                2978 Feb 11 21:21 technical/government/Media/residents_sue_city.txt
-12341237        8 -rwxr-xr-x    1 sophiasanat      staff                2094 Feb 11 21:21 technical/government/Media/Legal_Aid_Society.txt
-12341221       16 -rwxr-xr-x    1 sophiasanat      staff                5440 Feb 11 21:21 technical/government/Media/GreensburgDailyNews.txt
-12341250       16 -rwxr-xr-x    1 sophiasanat      staff                6721 Feb 11 21:21 technical/government/Media/Major_Changes.txt
-12341266        8 -rwxr-xr-x    1 sophiasanat      staff                3763 Feb 11 21:21 technical/government/Media/Program_Lodges.txt
-12341293        8 -rwxr-xr-x    1 sophiasanat      staff                2042 Feb 11 21:21 technical/government/Media/Wilmington_lawyer.txt
-12341174        8 -rwxr-xr-x    1 sophiasanat      staff                2183 Feb 11 21:21 technical/government/Media/All_May_Have_Justice.txt
-12341202        8 -rwxr-xr-x    1 sophiasanat      staff                3765 Feb 11 21:21 technical/government/Media/Domestic_violence_aid.txt
-12341172        8 -rwxr-xr-x    1 sophiasanat      staff                2869 Feb 11 21:21 technical/government/Media/Advocate_for_Poor.txt
-12341301        8 -rwxr-xr-x    1 sophiasanat      staff                2806 Feb 11 21:21 technical/government/Media/fight_domestic_abuse.txt
-12341194       16 -rwxr-xr-x    1 sophiasanat      staff                6363 Feb 11 21:21 technical/government/Media/CommercialAppealMemphis2.txt
-12341292       16 -rwxr-xr-x    1 sophiasanat      staff                6924 Feb 11 21:21 technical/government/Media/Weak_economy.txt
-12341235        8 -rwxr-xr-x    1 sophiasanat      staff                1992 Feb 11 21:21 technical/government/Media/Lawyer_Web_Survey.txt
-12341290        8 -rwxr-xr-x    1 sophiasanat      staff                2249 Feb 11 21:21 technical/government/Media/Valley_Needing_Legal_Services.txt
-12341183        8 -rwxr-xr-x    1 sophiasanat      staff                3951 Feb 11 21:21 technical/government/Media/Barr_sharpening_ax.txt
-12341238        8 -rwxr-xr-x    1 sophiasanat      staff                3591 Feb 11 21:21 technical/government/Media/Legal_Aid_attorney.txt
-12341282        8 -rwxr-xr-x    1 sophiasanat      staff                3138 Feb 11 21:21 technical/government/Media/The_Bend_Bulletin.txt
-12341243        8 -rwxr-xr-x    1 sophiasanat      staff                4047 Feb 11 21:21 technical/government/Media/Legal_services_for_poor.txt
-12341207       24 -rwxr-xr-x    1 sophiasanat      staff                9553 Feb 11 21:21 technical/government/Media/Farm_workers.txt
-12341204       16 -rwxr-xr-x    1 sophiasanat      staff                4366 Feb 11 21:21 technical/government/Media/Entities_Merge.txt
-12341305        8 -rwxr-xr-x    1 sophiasanat      staff                3137 Feb 11 21:21 technical/government/Media/less_legal_aid.txt
-12341287       16 -rwxr-xr-x    1 sophiasanat      staff                5820 Feb 11 21:21 technical/government/Media/Understanding.txt
-12341200        8 -rwxr-xr-x    1 sophiasanat      staff                2358 Feb 11 21:21 technical/government/Media/Do-it-yourself_divorce.txt
-12341261       16 -rwxr-xr-x    1 sophiasanat      staff                5114 Feb 11 21:21 technical/government/Media/Politician_Practices.txt
-12341299        8 -rwxr-xr-x    1 sophiasanat      staff                3698 Feb 11 21:21 technical/government/Media/defend_yourself.txt
-12341286       16 -rwxr-xr-x    1 sophiasanat      staff                4136 Feb 11 21:21 technical/government/Media/Towson_Attorney.txt
-12341264        8 -rwxr-xr-x    1 sophiasanat      staff                3976 Feb 11 21:21 technical/government/Media/Pro-bono_road_show.txt
-12341169        8 -rwxr-xr-x    1 sophiasanat      staff                2187 Feb 11 21:21 technical/government/Media/A_Perk_of_Age.txt
-12341170       16 -rwxr-xr-x    1 sophiasanat      staff                7163 Feb 11 21:21 technical/government/Media/A_helping_hand.txt
-12341309        8 -rwxr-xr-x    1 sophiasanat      staff                3485 Feb 11 21:21 technical/government/Media/pro_bono_efforts.txt
-12341167        8 -rwxr-xr-x    1 sophiasanat      staff                3035 Feb 11 21:21 technical/government/Media/5_Legal_Groups.txt
-12341220       16 -rwxr-xr-x    1 sophiasanat      staff                7294 Feb 11 21:21 technical/government/Media/Greedy_Generous.txt
-12341270       16 -rwxr-xr-x    1 sophiasanat      staff                5225 Feb 11 21:21 technical/government/Media/Retirement_Has_Its_Appeal.txt
-12341271        8 -rwxr-xr-x    1 sophiasanat      staff                4081 Feb 11 21:21 technical/government/Media/RoanokeTimes.txt
-12341253       24 -rwxr-xr-x    1 sophiasanat      staff                8713 Feb 11 21:21 technical/government/Media/NJ_Legal_Services.txt
-12341187       16 -rwxr-xr-x    1 sophiasanat      staff                5442 Feb 11 21:21 technical/government/Media/Bridging_legal_aid_gap.txt
-12341239        8 -rwxr-xr-x    1 sophiasanat      staff                2850 Feb 11 21:21 technical/government/Media/Legal_Aid_campaign.txt
-12341173        8 -rwxr-xr-x    1 sophiasanat      staff                2851 Feb 11 21:21 technical/government/Media/Aid_Gets_7_Million.txt`
+# Part 2 - Researching commands - find  
+where I found the commands : https://tecadmin.net/linux-find-command-with-examples/
+
+## find -type
+This command finds only a certain type of path, such as files or directories, that you specify. This is useful if you are only lokking for a certain type of path within a directory.    
+`sophiasanat@MacBook-Pro-83 docsearch-1 % find technical/911report -type d`  
+`technical/911report` 
+  
+`sophiasanat@MacBook-Pro-83 docsearch-1 % find technical/911report -type f`  
+`technical/911report/chapter-13.4.txt
+technical/911report/chapter-13.5.txt
+technical/911report/chapter-13.1.txt
+technical/911report/chapter-13.2.txt
+technical/911report/chapter-13.3.txt
+technical/911report/chapter-3.txt
+technical/911report/chapter-2.txt
+technical/911report/chapter-1.txt
+technical/911report/chapter-5.txt
+technical/911report/chapter-6.txt
+technical/911report/chapter-7.txt
+technical/911report/chapter-9.txt
+technical/911report/chapter-8.txt
+technical/911report/preface.txt
+technical/911report/chapter-12.txt
+technical/911report/chapter-10.txt
+technical/911report/chapter-11.txt`  
+
+## find -size
+This command finds only files under, over or exactly the size you specify. This is useful because you could be looking for only smaller or bigger files.  
+
+`sophiasanat@MacBook-Pro-83 docsearch-1 % find technical -size +200k`  
+`technical/government/About_LSC/commission_report.txt
+technical/government/Env_Prot_Agen/bill.txt
+technical/government/Gen_Account_Office/GovernmentAuditingStandards_yb2002ed.txt
+technical/government/Gen_Account_Office/Statements_Feb28-1997_volume.txt
+technical/government/Gen_Account_Office/d01591sp.txt
+technical/911report/chapter-13.4.txt
+technical/911report/chapter-13.5.txt
+technical/911report/chapter-3.txt`  
+
+`sophiasanat@MacBook-Pro-83 docsearch-1 % find technical -size -1k `  
+`technical
+technical/government
+technical/government/About_LSC
+technical/government/Env_Prot_Agen
+technical/government/Alcohol_Problems
+technical/government/Post_Rate_Comm
+technical/plos/pmed.0020191.txt
+technical/plos/pmed.0020226.txt
+technical/911report`  
+
+## find -mtime
+This command finds only files modified or not modified in the specified amount of time. This useful if you want to find files that you know when they were modified.  
+
+`sophiasanat@MacBook-Pro-83 docsearch-1 % find technical -mtime +1`  
+`sophiasanat@MacBook-Pro-83 docsearch-1 %`    
+
+`sophiasanat@MacBook-Pro-83 docsearch-1 % find technical/government/About_LSC -mtime -1`  
+`technical/government/About_LSC
+technical/government/About_LSC/LegalServCorp_v_VelazquezSyllabus.txt
+technical/government/About_LSC/Progress_report.txt
+technical/government/About_LSC/Strategic_report.txt
+technical/government/About_LSC/Comments_on_semiannual.txt
+technical/government/About_LSC/Special_report_to_congress.txt
+technical/government/About_LSC/CONFIG_STANDARDS.txt
+technical/government/About_LSC/commission_report.txt
+technical/government/About_LSC/LegalServCorp_v_VelazquezDissent.txt
+technical/government/About_LSC/ONTARIO_LEGAL_AID_SERIES.txt
+technical/government/About_LSC/LegalServCorp_v_VelazquezOpinion.txt
+technical/government/About_LSC/diversity_priorities.txt
+technical/government/About_LSC/reporting_system.txt
+technical/government/About_LSC/State_Planning_Report.txt
+technical/government/About_LSC/Protocol_Regarding_Access.txt
+technical/government/About_LSC/ODonnell_et_al_v_LSCdecision.txt
+technical/government/About_LSC/conference_highlights.txt
+technical/government/About_LSC/State_Planning_Special_Report.txt`  
+
+## find -user
+This command finds files based on the owner. This is useful if you are only looking for files or looking for all the files with a certain owner.
+
+`sophiasanat@MacBook-Pro-83 docsearch-1 % find technical/government/About_LSC -user sophia`           
+`find: -user: sophia: no such user`   
+
+`sophiasanat@MacBook-Pro-83 docsearch-1 % find technical/government/About_LSC -user SophiaSanat`  
+`technical/government/About_LSC
+technical/government/About_LSC/LegalServCorp_v_VelazquezSyllabus.txt
+technical/government/About_LSC/Progress_report.txt
+technical/government/About_LSC/Strategic_report.txt
+technical/government/About_LSC/Comments_on_semiannual.txt
+technical/government/About_LSC/Special_report_to_congress.txt
+technical/government/About_LSC/CONFIG_STANDARDS.txt
+technical/government/About_LSC/commission_report.txt
+technical/government/About_LSC/LegalServCorp_v_VelazquezDissent.txt
+technical/government/About_LSC/ONTARIO_LEGAL_AID_SERIES.txt
+technical/government/About_LSC/LegalServCorp_v_VelazquezOpinion.txt
+technical/government/About_LSC/diversity_priorities.txt
+technical/government/About_LSC/reporting_system.txt
+technical/government/About_LSC/State_Planning_Report.txt
+technical/government/About_LSC/Protocol_Regarding_Access.txt
+technical/government/About_LSC/ODonnell_et_al_v_LSCdecision.txt
+technical/government/About_LSC/conference_highlights.txt`
