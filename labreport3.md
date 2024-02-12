@@ -7,9 +7,9 @@ This fix adresses the issue because
 
 # Part 2 - Researching commands - find
 ## find <<directory>> -ls
- 'find technical/911report -ls'
+ `find technical/911report -ls`
  Output:
-'12340178        0 drwxr-xr-x   19 sophiasanat      staff                 608 Feb 11 21:21 technical/911report
+`12340178        0 drwxr-xr-x   19 sophiasanat      staff                 608 Feb 11 21:21 technical/911report
 12340186      520 -rwxr-xr-x    1 sophiasanat      staff              265912 Feb 11 21:21 technical/911report/chapter-13.4.txt
 12340187      576 -rwxr-xr-x    1 sophiasanat      staff              290993 Feb 11 21:21 technical/911report/chapter-13.5.txt
 12340183      176 -rwxr-xr-x    1 sophiasanat      staff               89854 Feb 11 21:21 technical/911report/chapter-13.1.txt
@@ -26,10 +26,10 @@ This fix adresses the issue because
 12340195       24 -rwxr-xr-x    1 sophiasanat      staff                9332 Feb 11 21:21 technical/911report/preface.txt
 12340182      256 -rwxr-xr-x    1 sophiasanat      staff              127587 Feb 11 21:21 technical/911report/chapter-12.txt
 12340180       96 -rwxr-xr-x    1 sophiasanat      staff               47307 Feb 11 21:21 technical/911report/chapter-10.txt
-12340181      144 -rwxr-xr-x    1 sophiasanat      staff               71151 Feb 11 21:21 technical/911report/chapter-11.txt'
-'find technical/government -ls'
+12340181      144 -rwxr-xr-x    1 sophiasanat      staff               71151 Feb 11 21:21 technical/911report/chapter-11.txt`
+`find technical/government -ls`
 Output:
-'12341035        0 drwxr-xr-x    8 sophiasanat      staff                 256 Feb 11 21:21 technical/government
+`12341035        0 drwxr-xr-x    8 sophiasanat      staff                 256 Feb 11 21:21 technical/government
 12341036        0 drwxr-xr-x   19 sophiasanat      staff                 608 Feb 11 21:21 technical/government/About_LSC
 12341041       16 -rwxr-xr-x    1 sophiasanat      staff                7083 Feb 11 21:21 technical/government/About_LSC/LegalServCorp_v_VelazquezSyllabus.txt
 12341044       96 -rwxr-xr-x    1 sophiasanat      staff               47991 Feb 11 21:21 technical/government/About_LSC/Progress_report.txt
@@ -320,4 +320,4 @@ Output:
 12341253       24 -rwxr-xr-x    1 sophiasanat      staff                8713 Feb 11 21:21 technical/government/Media/NJ_Legal_Services.txt
 12341187       16 -rwxr-xr-x    1 sophiasanat      staff                5442 Feb 11 21:21 technical/government/Media/Bridging_legal_aid_gap.txt
 12341239        8 -rwxr-xr-x    1 sophiasanat      staff                2850 Feb 11 21:21 technical/government/Media/Legal_Aid_campaign.txt
-12341173        8 -rwxr-xr-x    1 sophiasanat      staff                2851 Feb 11 21:21 technical/government/Media/Aid_Gets_7_Million.txt'
+12341173        8 -rwxr-xr-x    1 sophiasanat      staff                2851 Feb 11 21:21 technical/government/Media/Aid_Gets_7_Million.txt`
