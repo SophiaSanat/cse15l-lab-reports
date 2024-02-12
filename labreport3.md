@@ -12,8 +12,7 @@
     assertArrayEquals(new int[]{0, 0, 0}, ArrayExamples.reversed(input1));
   }`  
 ## Symptom  
-`There was 1 failure:
-1) testReversed2(ArrayTests)
+`1) testReversed2(ArrayTests)
 arrays first differed at element [0]; expected:<3> but was:<0>
         at org.junit.internal.ComparisonCriteria.arrayEquals(ComparisonCriteria.java:78)
         at org.junit.internal.ComparisonCriteria.arrayEquals(ComparisonCriteria.java:28)
@@ -47,9 +46,9 @@ Before:
     }
     return newArray;
   }`  
-  This fix adresses the issue because instead of changing the old array to all zeros, it changes the new array to the reversed values of the old array.  
-This fix adresses the issue because
-
+    
+ This fix adresses the issue because instead of changing the old array to all zeros, it changes the new array to the reversed values of the old array.  
+    
 # Part 2 - Researching commands - find  
 where I found the commands : https://tecadmin.net/linux-find-command-with-examples/
 
