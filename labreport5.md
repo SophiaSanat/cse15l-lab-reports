@@ -22,7 +22,7 @@ Command line:
 Ran `bash test.sh`  which runs  
 `javac -cp .:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar *.java`  
 `java -cp .:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar org.junit.runner.JUnitCore ListExamplesTests`  
-What to edit:
+What to edit:  
 At line 33 in ListExamples.java, edit `list1.add(list2.get(index2))` to be `list1.add(index1, list2.get(index2))`
 And and an extra line at line 34 with `index1 = index1 +1`
 
