@@ -13,13 +13,13 @@ It looks like the array elements are not being added in the right order. Maybe y
 The bug was that index1 was not increasing when an element from list2 was added, and that the element was being added at the end.
 
 ## Information about the setup  
-File structure: 
-![Image](lab5ss4.png)
-Contents of each file:
-![Image](lab5ss5.png)
-![Image](lab5ss6.png)
+File structure:  
+![Image](lab5ss4.png)  
+Contents of each file:  
+![Image](lab5ss5.png)  
+![Image](lab5ss6.png)  
 Command line:  
-Ran `bash test.sh`  which runs 
+Ran `bash test.sh`  which runs  
 `javac -cp .:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar *.java`  
 `java -cp .:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar org.junit.runner.JUnitCore ListExamplesTests`  
 What to edit:
